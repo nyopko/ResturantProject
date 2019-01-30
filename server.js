@@ -1,5 +1,6 @@
 var express = require("express");
 var path = require("path");
+var fs = require("fs");
 
 // Sets up the Express App
 // =============================================================
@@ -76,8 +77,14 @@ app.get("/api/tables/:diner", function(req, res) {
     console.log(newDiner);
     if (tables.length < 5) {
         tables.push(newDiner);
+        fs.appendFileSync("data.txt", "\r\n" + newDiner + " | Tables \r\n", function(err) {
+            if (err) throw err;
+        });
     } else {
         waitlist.push(newDiner);
+        fs.appendFileSync("data.txt", "\r\n" + newDiner + " | Waitlist \r\n", function(err) {
+            if (err) throw err;
+        });
     }
   
     res.json(newDiner);
