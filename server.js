@@ -64,14 +64,14 @@ app.get("/api/tables/:diner", function(req, res) {
   });
   
   // Create New Characters - takes in JSON input
-  app.post("/reservations", function(req, res) {
+  app.post("/api/tables", function(req, res) {
     // req.body hosts is equal to the JSON post sent from the user
     // This works because of our body parsing middleware
     var newDiner = req.body;
   
     // Using a RegEx Pattern to remove spaces from newCharacter
     // You can read more about RegEx Patterns later https://www.regexbuddy.com/regex.html
-    newDiner.customerID = newDiner.name.replace(/\s+/g, "").toLowerCase();
+    newDiner.customerID = newDiner.customerID.replace(/\s+/g, "").toLowerCase();
   
     console.log(newDiner);
     if (tables.length < 5) {
