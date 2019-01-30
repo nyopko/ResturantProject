@@ -25,20 +25,20 @@ app.get("/", function(req, res) {
     res.sendFile(path.join(__dirname, "add.html"));
   });
   
-  // Displays all characters
-  app.get("/api/characters", function(req, res) {
-    return res.json(characters);
+  // Displays all tables
+  app.get("/api/tables", function(req, res) {
+    return res.json(diners);
   });
 
   // Displays a single character, or returns false
-app.get("/api/characters/:character", function(req, res) {
-    var chosen = req.params.character;
+app.get("/api/tables/:diner", function(req, res) {
+    var chosen = req.params.diner;
   
     console.log(chosen);
   
-    for (var i = 0; i < characters.length; i++) {
-      if (chosen === characters[i].routeName) {
-        return res.json(characters[i]);
+    for (var i = 0; i < diners.length; i++) {
+      if (chosen === diners[i].routeName) {
+        return res.json(diners[i]);
       }
     }
   
@@ -46,20 +46,20 @@ app.get("/api/characters/:character", function(req, res) {
   });
   
   // Create New Characters - takes in JSON input
-  app.post("/api/characters", function(req, res) {
+  app.post("/api/tables", function(req, res) {
     // req.body hosts is equal to the JSON post sent from the user
     // This works because of our body parsing middleware
-    var newcharacter = req.body;
+    var newDiner = req.body;
   
     // Using a RegEx Pattern to remove spaces from newCharacter
     // You can read more about RegEx Patterns later https://www.regexbuddy.com/regex.html
-    newcharacter.routeName = newcharacter.name.replace(/\s+/g, "").toLowerCase();
+    newDiner.routeName = newDiner.name.replace(/\s+/g, "").toLowerCase();
   
-    console.log(newcharacter);
+    console.log(newDiner);
   
-    characters.push(newcharacter);
+    diners.push(newDiner);
   
-    res.json(newcharacter);
+    res.json(newDiner);
   });
   
   // Starts the server to begin listening
